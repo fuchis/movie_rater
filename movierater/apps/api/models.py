@@ -5,6 +5,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Movie(models.Model):
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=360)
+    
+    def __str__(self):
+        return self.title
 
 class Rating(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
@@ -13,3 +16,6 @@ class Rating(models.Model):
     class Meta:
         unique_together = (('user', 'movie'),)
         index_together = (('user', 'movie'),)
+
+    def __str__(self):
+        return self.movie.title
